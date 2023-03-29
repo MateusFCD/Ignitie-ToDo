@@ -6,7 +6,9 @@ type Props = {
   type: SituationProps;
 };
 
-export const Container = styled.View`
+export const Container = styled.View``;
+
+export const Content = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;

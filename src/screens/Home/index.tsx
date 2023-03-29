@@ -1,6 +1,8 @@
 import React from "react";
 import { Text } from "react-native";
 import { Button } from "../../components/Button";
+import { CardTask } from "../../components/CardTask";
+import { EmptyTask } from "../../components/EmptyTask";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Tasks } from "../../components/Tasks";
@@ -16,6 +18,8 @@ export function Home() {
           <Button />
         </Box>
         <Tasks />
+        <EmptyTask />
+        <CardTask text="Estudar React Native" />
       </Content>
     </Container>
   );
