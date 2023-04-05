@@ -6,7 +6,9 @@ type Props = {
   type: SituationProps;
 };
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  margin-bottom: 10px;
+`;
 
 export const Content = styled.View`
   flex-direction: row;

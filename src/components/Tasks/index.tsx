@@ -1,17 +1,22 @@
 import React from "react";
 import { Container, Situation, Box, Span, Content } from "./styles";
 
-export function Tasks() {
+interface Props {
+  count: number;
+  concluded: number;
+}
+
+export function Tasks({ count, concluded }: Props) {
   return (
     <Container>
       <Content>
         <Box>
           <Situation type="PRIMARY">Criadas</Situation>
-          <Span>0</Span>
+          <Span>{count}</Span>
         </Box>
         <Box>
           <Situation type="SECONDARY">Concluídas</Situation>
-          <Span>0</Span>
+          <Span>{concluded}</Span>
         </Box>
       </Content>
     </Container>

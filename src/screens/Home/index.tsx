@@ -9,24 +9,38 @@ import { Loading } from "../../components/Loading";
 import { Tasks } from "../../components/Tasks";
 import { Container, Content, Box } from "./styles";
 
+interface TaskProps {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+}
+
 export function Home() {
-  const [task, setTask] = useState<string[]>([]);
+  const [task, setTask] = useState<TaskProps[]>([]);
   const [newTaskText, setNewTaskText] = useState("");
+  const [completedTaskCount, setCompletedTaskCount] = useState(0);
+  const count = task.length;
 
   function handleCreateNewTask() {
-    if (task.includes(newTaskText)) {
-      return Alert.alert("Tarefa Existe", "Essa tarefa já existe");
+    if (newTaskText) {
+      setTask([
+        ...task,
+        {
+          id: new Date().getTime(),
+          text: newTaskText,
+          isCompleted: false,
+        },
+      ]);
     }
-    setTask((prevState) => [...prevState, newTaskText]);
     setNewTaskText("");
   }
 
-  function handleDeleteTask(tasks: string) {
+  function handleDeleteTask(id: number) {
     Alert.alert("Remover", "Deseja remover essa tarefa?", [
       {
         text: "Sim",
         onPress: () => {
-          setTask((prevState) => prevState.filter((task) => task !== tasks));
+          setTask((prevState) => prevState.filter((task) => task.id !== id));
         },
       },
       {
@@ -35,6 +49,24 @@ export function Home() {
       },
     ]);
   }
+
+  const handleComplete = (id: number) => {
+    let list = task.map((task) => {
+      let item = {};
+      if (task.id == id) {
+        if (!task.isCompleted) {
+          //Task is pending, modifying it to complete and increment the count
+          setCompletedTaskCount(completedTaskCount + 1);
+        } else {
+          //Task is complete, modifying it back to pending, decrement Complete count
+          setCompletedTaskCount(completedTaskCount - 1);
+        }
+        item = { ...task, isCompleted: !task.isCompleted };
+      } else item = { ...task };
+      return item;
+    });
+    setTask(list as any);
+  };
 
   return (
     <Container>
@@ -48,16 +80,22 @@ export function Home() {
           />
           <Button onPress={handleCreateNewTask} />
         </Box>
-        <Tasks />
+
+        <Tasks count={count} concluded={completedTaskCount} />
 
         {task.length === 0 ? (
           <EmptyTask />
         ) : (
           <FlatList
             data={task}
-            keyExtractor={(item) => item}
+            keyExtractor={(item) => item.text}
             renderItem={({ item }) => (
-              <CardTask text={item} onDelete={() => handleDeleteTask(item)} />
+              <CardTask
+                text={item.text}
+                onDelete={() => handleDeleteTask(item.id)}
+                onCompleted={() => handleComplete(item.id)}
+                checked={item.isCompleted}
+              />
             )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={task.length === 0 && { flex: 1 }}
