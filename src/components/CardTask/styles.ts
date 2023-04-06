@@ -1,5 +1,4 @@
-
-import { TouchableOpacity} from "react-native";
+import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -20,7 +19,6 @@ export const Container = styled.View`
   margin-bottom: 8px;
 
   align-items: center;
-  justify-content: space-between;
 `;
 
 export const Text = styled.Text`
@@ -29,5 +27,7 @@ export const Text = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY_100};
 `;
 
-export const Button = styled(TouchableOpacity)``;
-
+export const Button = styled(TouchableOpacity)`
+  position: absolute;
+  left: 290px;
+`;

@@ -19,10 +19,10 @@ export function CardTask({ text, onDelete, onCompleted, checked }: Props) {
         onPress={() => onCompleted()}
         size={20}
         fillColor={COLORS.PURPLE}
-        innerIconStyle={{ borderColor: COLORS.BLUE }}
         isChecked={checked}
+        text={text}
+        textStyle={{ color: checked ? COLORS.GRAY_300 : COLORS.WHITE }}
       />
-      <Text>{text}</Text>
       <Button onPress={() => onDelete()}>
         <Trash size={20} color={COLORS.GRAY_300} />
       </Button>

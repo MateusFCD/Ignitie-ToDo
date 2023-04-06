@@ -15,5 +15,8 @@ export const Content = styled.View`
 export const Box = styled.View`
   flex-direction: row;
   gap: 4px;
-  margin-bottom: 32px;
+  margin-bottom: 10px;
+
+  position: relative;
+  top: -25px;
 `;
